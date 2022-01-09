@@ -99,7 +99,7 @@ class Parser:
                 try:
                     rec = self.get_record(f_obj)
                     yield rec
-                except EOFError:
+                except StopIteration:
                     break
 
     def _get_record(self, f_obj: io.TextIOWrapper) -> Union[Tuple[str, str], Tuple[str, str, str]]:
@@ -123,7 +123,7 @@ class FastaParser(Parser):
         header = f_obj.readline()[1:].strip()
         sequence = f_obj.readline().strip()
         if len(header) == 0:
-            raise EOFError
+            raise StopIteration
         return header, sequence
 
 
@@ -140,5 +140,5 @@ class FastqParser(Parser):
         skip = f_obj.readline()
         quality = f_obj.readline().strip()
         if len(header) == 0:
-            raise EOFError
+            raise StopIteration
         return header, sequence, quality
