@@ -27,10 +27,13 @@ def test_FastaParser():
     reads in the example Fasta File.
     """
     parser = FastaParser("data/test.fa")
+    record_count = 0
     for record in parser:
         assert len(record) == 2
         assert record[0][:3] == "seq"
         assert len(record[1]) == 100
+        record_count += 1
+    assert record_count == 100
 
 
 def test_FastqParser():
@@ -41,8 +44,11 @@ def test_FastqParser():
     reads in the example Fastq File.
     """
     parser = FastqParser("data/test.fq")
+    record_count = 0
     for record in parser:
         assert len(record) == 3
         assert record[0][:3] == "seq"
         assert len(record[1]) == 100
         assert len(record[2]) == 100
+        record_count += 1
+    assert record_count == 100
