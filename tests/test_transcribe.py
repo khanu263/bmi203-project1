@@ -1,8 +1,6 @@
 # write tests for transcribes
 
-from seqparser import (
-        transcribe,
-        reverse_transcribe)
+from seqparser import (transcribe, reverse_transcribe)
 
 
 def test_freebie_transcribe_1():
@@ -26,7 +24,9 @@ def test_transcribe():
     Write your unit test for the
     transcribe function here.
     """
-    pass
+    seq = "ATCG"
+    out = "UAGC"
+    assert transcribe(seq) == out
 
 
 def test_reverse_transcribe():
@@ -34,4 +34,6 @@ def test_reverse_transcribe():
     Write your unit test for the
     reverse transcribe function here.
     """
-    pass
+    seq = "ATCG"
+    out = "CGAU"
+    assert reverse_transcribe(seq) == out
