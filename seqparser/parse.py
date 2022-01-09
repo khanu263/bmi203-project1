@@ -96,8 +96,11 @@ class Parser:
             # and implement an exception for the error you will find in
             # the error message you receive. 
             while True:
-                rec = self.get_record(f_obj)
-                yield rec
+                try:
+                    rec = self.get_record(f_obj)
+                    yield rec
+                except EOFError:
+                    break
 
     def _get_record(self, f_obj: io.TextIOWrapper) -> Union[Tuple[str, str], Tuple[str, str, str]]:
         """
@@ -117,6 +120,11 @@ class FastaParser(Parser):
         """
         returns the next fasta record
         """
+        header = f_obj.readline()[1:].strip()
+        sequence = f_obj.readline().strip()
+        if len(header) == 0:
+            raise EOFError
+        return header, sequence
 
 
 class FastqParser(Parser):
@@ -127,4 +135,15 @@ class FastqParser(Parser):
         """
         returns the next fastq record
         """
+        header = f_obj.readline()[1:].strip()
+        sequence = f_obj.readline().strip()
+        skip = f_obj.readline()
+        quality = f_obj.readline().strip()
+        if len(header) == 0:
+            raise EOFError
+        return header, sequence, quality
 
+if __name__ == "__main__":
+    parser = FastqParser("../data/test.fq")
+    for record in parser:
+        print(record[0], record[1], record[2])

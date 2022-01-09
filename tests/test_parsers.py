@@ -1,8 +1,6 @@
 # write tests for parsers
 
-from seqparser import (
-        FastaParser,
-        FastqParser)
+from seqparser import (FastaParser, FastqParser)
 
 
 def test_freebie_parser_1():
@@ -28,7 +26,11 @@ def test_FastaParser():
     your FastaParser class and assert that it properly
     reads in the example Fasta File.
     """
-    pass
+    parser = FastaParser("data/test.fa")
+    for record in parser:
+        assert len(record) == 2
+        assert record[0][:3] == "seq"
+        assert len(record[1]) == 100
 
 
 def test_FastqParser():
@@ -38,4 +40,9 @@ def test_FastqParser():
     your FastqParser class and assert that it properly
     reads in the example Fastq File.
     """
-    pass
+    parser = FastqParser("data/test.fq")
+    for record in parser:
+        assert len(record) == 3
+        assert record[0][:3] == "seq"
+        assert len(record[1]) == 100
+        assert len(record[2]) == 100
