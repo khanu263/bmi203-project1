@@ -142,8 +142,3 @@ class FastqParser(Parser):
         if len(header) == 0:
             raise EOFError
         return header, sequence, quality
-
-if __name__ == "__main__":
-    parser = FastqParser("../data/test.fq")
-    for record in parser:
-        print(record[0], record[1], record[2])
