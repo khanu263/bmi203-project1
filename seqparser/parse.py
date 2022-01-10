@@ -120,7 +120,7 @@ class FastaParser(Parser):
         """
         returns the next fasta record
         """
-        header = f_obj.readline()[1:].strip()
+        header = f_obj.readline().strip()
         sequence = f_obj.readline().strip()
         if len(header) == 0:
             raise StopIteration
@@ -135,9 +135,9 @@ class FastqParser(Parser):
         """
         returns the next fastq record
         """
-        header = f_obj.readline()[1:].strip()
+        header = f_obj.readline().strip()
         sequence = f_obj.readline().strip()
-        skip = f_obj.readline()
+        _ = f_obj.readline()
         quality = f_obj.readline().strip()
         if len(header) == 0:
             raise StopIteration

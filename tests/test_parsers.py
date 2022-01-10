@@ -30,7 +30,7 @@ def test_FastaParser():
     record_count = 0
     for record in parser:
         assert len(record) == 2
-        assert record[0][:3] == "seq"
+        assert record[0][0] == ">"
         assert len(record[1]) == 100
         record_count += 1
     assert record_count == 100
@@ -47,7 +47,7 @@ def test_FastqParser():
     record_count = 0
     for record in parser:
         assert len(record) == 3
-        assert record[0][:3] == "seq"
+        assert record[0][0] == "@"
         assert len(record[1]) == 100
         assert len(record[2]) == 100
         record_count += 1
